@@ -1,0 +1,29 @@
+name: Lint
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3.6.0
+        with:
+          node-version-file: '.node-version'
+
+      - uses: actions/setup-node@v3
+        with:
+          cache: 'npm'
+
+      - name: Installing dependencies
+        run: npm install
+        shell: bash
+
+      - name: Linting the code
+        run: npm run lint
