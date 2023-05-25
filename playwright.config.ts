@@ -11,6 +11,7 @@ export default defineConfig({
   use: {
     baseURL: 'https://accredited-programmes-dev.hmpps.service.justice.gov.uk',
     trace: 'on-first-retry',
+    video: 'on-first-retry',
   },
 
   projects: [
