@@ -24,7 +24,7 @@ test('has a title and a list of accredited programmes', async ({ page }) => {
     'Thinking Skills Programme (TSP)',
   ])
 
-  await page.locator('div[role="list"] .govuk-grid-row:first-child a').click()
+  await page.locator('div[role="list"] > .govuk-grid-row:first-child a').click()
   await expect(page.locator('h1')).toHaveText('Becoming New Me Plus (BNM+)')
   await expect(page.locator('.govuk-table__cell:first-child')).toHaveText([
     'Bure (HMP)',
