@@ -1,9 +1,23 @@
+import type { Page } from '@playwright/test'
 import { expect, test } from '@playwright/test'
 
-test('has a title and a list of accredited programmes', async ({ page }) => {
+test('allows users to find a programme and offering', async ({ page }) => {
   await page.goto('/programmes')
+
+  await showsListOfProgrammes(page)
+
+  await page.locator('div[role="list"] > .govuk-grid-row:first-child a').click()
+
+  await showsListOfOfferings(page)
+
+  await page.locator('.govuk-table__row:first-child > .govuk-table__cell:nth-child(4) > a').click()
+
+  await showsSingleOffering(page)
+})
+
+const showsListOfProgrammes = async (page: Page): Promise<void> => {
   await expect(page.locator('h1')).toHaveText('List of accredited programmes')
-  const courseLinks = await page.locator('div[role="list"] a')
+  const courseLinks = page.locator('div[role="list"] a')
   expect(courseLinks).toHaveText([
     'Becoming New Me Plus (BNM+)',
     'Becoming New Me Plus (BNM+)',
@@ -23,10 +37,12 @@ test('has a title and a list of accredited programmes', async ({ page }) => {
     'New Me Strengths (NMS)',
     'Thinking Skills Programme (TSP)',
   ])
+}
 
-  await page.locator('div[role="list"] > .govuk-grid-row:first-child a').click()
+const showsListOfOfferings = async (page: Page): Promise<void> => {
   await expect(page.locator('h1')).toHaveText('Becoming New Me Plus (BNM+)')
-  await expect(page.locator('.govuk-table__cell:first-child')).toHaveText([
+  const prisonListItems = page.locator('.govuk-table__cell:first-child')
+  await expect(prisonListItems).toHaveText([
     'Bure (HMP)',
     'Hull (HMP & YOI)',
     'Isle Of Wight (HMP & YOI)',
@@ -36,8 +52,9 @@ test('has a title and a list of accredited programmes', async ({ page }) => {
     'Whatton (HMP)',
     'Wymott (HMP & YOI)',
   ])
+}
 
-  await page.locator('.govuk-table__row:first-child > .govuk-table__cell:nth-child(4) > a').click()
+const showsSingleOffering = async (page: Page): Promise<Void> => {
   await expect(page.locator('h1')).toHaveText('Becoming New Me Plus (BNM+)')
   await expect(page.locator('h2')).toHaveText('Bure (HMP)')
   const mailToLink = page.locator('.govuk-summary-list__value .govuk-link')
@@ -45,4 +62,4 @@ test('has a title and a list of accredited programmes', async ({ page }) => {
     'href',
     'mailto:obpbure@justice.gov.uk?subject=Accredited%20programme%20referral%20-%20Bure%20(HMP)%20-%20Becoming%20New%20Me%20Plus',
   )
-})
+}
