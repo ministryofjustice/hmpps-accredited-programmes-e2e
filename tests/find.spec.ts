@@ -62,4 +62,12 @@ const showsSingleOffering = async (page: Page): Promise<Void> => {
     'href',
     'mailto:obpbure@justice.gov.uk?subject=Accredited%20programme%20referral%20-%20Bure%20(HMP)%20-%20Becoming%20New%20Me%20Plus',
   )
+  await hasMakeAReferralButtonLink(page)
+}
+
+const hasMakeAReferralButtonLink = async (page: Page): Promise<void> => {
+  const baseUrl = 'https://accredited-programmes-dev.hmpps.service.justice.gov.uk'
+  const currentPath = page.url().replace(baseUrl, '')
+  const makeAReferralButton = page.locator('.govuk-button')
+  await expect(makeAReferralButton).toHaveAttribute('href', `${currentPath}/refer`)
 }
