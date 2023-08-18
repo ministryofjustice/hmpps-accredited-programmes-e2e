@@ -54,7 +54,7 @@ const showsListOfOfferings = async (page: Page): Promise<void> => {
   ])
 }
 
-const showsSingleOffering = async (page: Page): Promise<Void> => {
+const showsSingleOffering = async (page: Page): Promise<void> => {
   await expect(page.locator('h1')).toHaveText('Becoming New Me Plus (BNM+)')
   await expect(page.locator('h2')).toHaveText('Bure (HMP)')
   const mailToLink = page.locator('.govuk-summary-list__value .govuk-link')
