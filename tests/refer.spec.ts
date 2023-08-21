@@ -13,8 +13,7 @@ test('allows users to make a referral', async ({ page }) => {
   // further steps to follow
 })
 
-const referStartPath =
-  '/programmes/fc51527c-8cf4-4c41-ae37-24db86b46040/offerings/7c7d6059-41da-4d1a-82c4-ef41cb399975/refer'
+const referStartPath = '/offerings/7c7d6059-41da-4d1a-82c4-ef41cb399975/refer'
 
 const prisonNumber = 'A8731DY'
 
