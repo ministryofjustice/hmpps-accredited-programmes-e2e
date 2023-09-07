@@ -10,6 +10,8 @@ test('allows users to make a referral', async ({ page }) => {
 
   await createsAReferral(page)
 
+  await confirmsOasys(page)
+
   await showsCheckAnswersBeforeSubmitting(page)
 
   // further steps to follow
@@ -41,6 +43,14 @@ const searchesForAPrisoner = async (page: Page): Promise<void> => {
 const createsAReferral = async (page: Page): Promise<void> => {
   await page.getByRole('button', { name: 'Continue' }).click()
   await expect(page.locator('h1')).toHaveText('Make a referral')
+}
+
+const confirmsOasys = async (page: Page): Promise<void> => {
+  await page.getByRole('link', { name: 'Confirm the OASys information' }).click()
+  await expect(page.locator('h1')).toHaveText('Confirm the OASys information')
+  await page.getByLabel('I confirm that the OASys information is up to date.').check()
+  await page.getByRole('button', { name: 'Save and continue' }).click()
+  await expect(page.getByTestId('oasys-confirmed-tag')).toHaveText('completed')
 }
 
 const showsCheckAnswersBeforeSubmitting = async (page: Page): Promise<void> => {
