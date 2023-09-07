@@ -10,6 +10,8 @@ test('allows users to make a referral', async ({ page }) => {
 
   await createsAReferral(page)
 
+  await showsPersonalDetails(page)
+
   await confirmsOasys(page)
 
   await showsCheckAnswersBeforeSubmitting(page)
@@ -43,6 +45,12 @@ const searchesForAPrisoner = async (page: Page): Promise<void> => {
 const createsAReferral = async (page: Page): Promise<void> => {
   await page.getByRole('button', { name: 'Continue' }).click()
   await expect(page.locator('h1')).toHaveText('Make a referral')
+}
+
+const showsPersonalDetails = async (page: Page): Promise<void> => {
+  await page.getByRole('link', { name: 'Confirm personal details' }).click()
+  await expect(page.locator('h1')).toHaveText("Andrew Smith's details")
+  await page.getByRole('link', { name: 'Back', exact: true }).click()
 }
 
 const confirmsOasys = async (page: Page): Promise<void> => {
