@@ -10,6 +10,8 @@ test('allows users to make a referral', async ({ page }) => {
 
   await createsAReferral(page)
 
+  await showsCheckAnswersBeforeSubmitting(page)
+
   // further steps to follow
 })
 
@@ -39,4 +41,9 @@ const searchesForAPrisoner = async (page: Page): Promise<void> => {
 const createsAReferral = async (page: Page): Promise<void> => {
   await page.getByRole('button', { name: 'Continue' }).click()
   await expect(page.locator('h1')).toHaveText('Make a referral')
+}
+
+const showsCheckAnswersBeforeSubmitting = async (page: Page): Promise<void> => {
+  await page.getByRole('link', { name: 'Check answers and submit' }).click()
+  await expect(page.locator('h1')).toHaveText('Check your answers')
 }
