@@ -16,6 +16,8 @@ test('allows users to make a referral', async ({ page }) => {
 
   await showsCheckAnswersBeforeSubmitting(page)
 
+  await completesAReferral(page)
+
   // further steps to follow
 })
 
@@ -64,4 +66,10 @@ const confirmsOasys = async (page: Page): Promise<void> => {
 const showsCheckAnswersBeforeSubmitting = async (page: Page): Promise<void> => {
   await page.getByRole('link', { name: 'Check answers and submit' }).click()
   await expect(page.locator('h1')).toHaveText('Check your answers')
+}
+
+const completesAReferral = async (page: Page): Promise<void> => {
+  await page.locator('input[name="confirmation"]').check()
+  await page.getByRole('button', { name: 'Submit referral' }).click()
+  await expect(page.locator('h1')).toHaveText('Referral complete')
 }
