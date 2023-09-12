@@ -36,7 +36,7 @@ const startsAReferral = async (page: Page): Promise<void> => {
 
 const searchesForAPrisoner = async (page: Page): Promise<void> => {
   await expect(page.locator('h1')).toHaveText("Enter the person's identifier")
-  await page.getByLabel('Enter identifier').fill(prisonNumber)
+  await page.getByLabel("Enter the prison number. We'll import their details into your application.").fill(prisonNumber)
   await page.getByRole('button', { name: 'Continue' }).click()
   await expect(page.locator('h1')).toHaveText("Confirm Andrew Smith's details")
   await expect(page.locator('.govuk-summary-list__row:nth-child(2) .govuk-summary-list__value')).toHaveText(
