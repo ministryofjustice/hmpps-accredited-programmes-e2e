@@ -12,6 +12,8 @@ test('allows users to make a referral', async ({ page }) => {
 
   await showsPersonalDetails(page)
 
+  await entersAReason(page)
+
   await confirmsOasys(page)
 
   await showsCheckAnswersBeforeSubmitting(page)
@@ -53,6 +55,14 @@ const showsPersonalDetails = async (page: Page): Promise<void> => {
   await page.getByRole('link', { name: 'Confirm personal details' }).click()
   await expect(page.locator('h1')).toHaveText("Andrew Smith's details")
   await page.getByRole('link', { name: 'Back', exact: true }).click()
+}
+
+const entersAReason = async (page: Page): Promise<void> => {
+  await page.getByRole('link', { name: 'Add reason for referral and any additional information' }).click()
+  await expect(page.locator('h1')).toHaveText('Add reason for referral and supporting information')
+  await page.getByLabel('Add reason for referral and supporting information').fill('This is a test reason.')
+  await page.getByRole('button', { name: 'Save and continue' }).click()
+  await expect(page.getByTestId('reason-tag')).toHaveText('completed')
 }
 
 const confirmsOasys = async (page: Page): Promise<void> => {
