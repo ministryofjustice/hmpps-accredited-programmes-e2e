@@ -70,7 +70,7 @@ const confirmsOasys = async (page: Page): Promise<void> => {
   await expect(page.locator('h1')).toHaveText('Confirm the OASys information')
   await page.getByLabel('I confirm that the OASys information is up to date.').check()
   await page.getByRole('button', { name: 'Save and continue' }).click()
-  await expect(page.getByTestId('oasys-confirmed-tag')).toHaveText('completed')
+  await expect(page.getByTestId('confirm-oasys-tag')).toHaveText('completed')
 }
 
 const showsCheckAnswersBeforeSubmitting = async (page: Page): Promise<void> => {
