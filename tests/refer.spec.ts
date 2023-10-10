@@ -12,7 +12,7 @@ test('allows users to make a referral', async ({ page }) => {
 
   await showsPersonalDetails(page)
 
-  await entersAReason(page)
+  await entersAdditionalInformation(page)
 
   await confirmsOasys(page)
 
@@ -57,8 +57,8 @@ const showsPersonalDetails = async (page: Page): Promise<void> => {
   await page.getByRole('link', { name: 'Back', exact: true }).click()
 }
 
-const entersAReason = async (page: Page): Promise<void> => {
-  await page.getByRole('link', { name: 'Add reason for referral and any additional information' }).click()
+const entersAdditionalInformation = async (page: Page): Promise<void> => {
+  await page.getByRole('link', { name: 'Add additional information' }).click()
   await expect(page.locator('h1')).toHaveText('Add reason for referral and any additional information')
   await page.getByLabel('Add reason for referral and any additional information').fill('This is a test reason.')
   await page.getByRole('button', { name: 'Save and continue' }).click()
