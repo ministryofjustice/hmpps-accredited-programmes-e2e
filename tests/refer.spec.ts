@@ -12,6 +12,8 @@ test('allows users to make a referral', async ({ page }) => {
 
   await showsPersonalDetails(page)
 
+  await entersProgrammeHistory(page)
+
   await confirmsOasys(page)
 
   await entersAdditionalInformation(page)
@@ -19,8 +21,6 @@ test('allows users to make a referral', async ({ page }) => {
   await showsCheckAnswersBeforeSubmitting(page)
 
   await completesAReferral(page)
-
-  // further steps to follow
 })
 
 const offeringReferralPathBase = '/offerings/7c7d6059-41da-4d1a-82c4-ef41cb399975/referrals'
@@ -55,6 +55,39 @@ const showsPersonalDetails = async (page: Page): Promise<void> => {
   await page.getByRole('link', { name: 'Confirm personal details' }).click()
   await expect(page.locator('h1')).toHaveText("Andrew Smith's details")
   await page.getByRole('link', { name: 'Back', exact: true }).click()
+}
+
+const entersProgrammeHistory = async (page: Page): Promise<void> => {
+  await page.getByRole('link', { name: 'Review Accredited Programme history' }).click()
+
+  await expect(page.locator('h1')).toHaveText('Accredited Programme history')
+  await page.getByTestId('add-history-button').click()
+
+  await expect(page.locator('h1')).toHaveText('Add Accredited Programme history')
+  await page.getByLabel('Horizon').click()
+  await page.getByRole('button', { name: 'Continue' }).click()
+
+  await expect(page.locator('h1')).toHaveText('Add Accredited Programme details')
+  await page.getByTestId('custody-setting-option').click()
+  await page.getByLabel('Enter the prison (if known)').fill('Stocken (HMP)')
+  await page.getByTestId('complete-outcome-option').click()
+  await page.getByLabel('Enter the year completed (if known)').fill('2020')
+  await page.getByLabel('Provide additional detail (if known)').fill('Spiffing')
+  await page.getByLabel('Provide the source').fill('The person sat next to me')
+  await page.getByRole('button', { name: 'Continue' }).click()
+
+  await expect(page.locator('h1')).toHaveText('Accredited Programme history')
+  await expect(page.locator('.moj-banner__message')).toContainText('You have successfully added a programme.')
+  const summaryCard = page.locator('.govuk-summary-card').last()
+  await expect(summaryCard.locator('.govuk-summary-card__title')).toContainText('Horizon')
+  await summaryCard.locator('.govuk-summary-card__action').last().click()
+
+  await expect(page.locator('h1')).toHaveText('Remove programme')
+  await page.getByRole('button', { name: 'Confirm' }).click()
+
+  await expect(page.locator('h1')).toHaveText('Accredited Programme history')
+  await expect(page.locator('.moj-banner__message')).toContainText('You have successfully removed a programme.')
+  await page.getByRole('button', { name: 'Continue' }).click()
 }
 
 const confirmsOasys = async (page: Page): Promise<void> => {
