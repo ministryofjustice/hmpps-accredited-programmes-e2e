@@ -100,10 +100,10 @@ const confirmsOasys = async (page: Page): Promise<void> => {
 
 const entersAdditionalInformation = async (page: Page): Promise<void> => {
   await page.getByRole('link', { name: 'Add additional information' }).click()
-  await expect(page.locator('h1')).toHaveText('Add reason for referral and any additional information')
-  await page.getByLabel('Add reason for referral and any additional information').fill('This is a test reason.')
+  await expect(page.locator('h1')).toHaveText('Add additional information')
+  await page.getByLabel('Add additional information').fill('Brussel sprouts could be more popular.')
   await page.getByRole('button', { name: 'Save and continue' }).click()
-  await expect(page.getByTestId('reason-tag')).toHaveText('completed')
+  await expect(page.getByTestId('additional-information-tag')).toHaveText('completed')
 }
 
 const showsCheckAnswersBeforeSubmitting = async (page: Page): Promise<void> => {
