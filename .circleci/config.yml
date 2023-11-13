@@ -1,0 +1,19 @@
+version: 2.1
+
+orbs:
+  hmpps: ministryofjustice/hmpps@7.2.1
+
+jobs:
+  placeholder-job:
+    executor:
+      name: hmpps/node
+      tag: 20.9-browsers
+    steps:
+      - checkout
+      - run: |
+          # echo Hello, World!
+
+workflows:
+  placeholder-workflow:
+    jobs:
+      - placeholder-job
