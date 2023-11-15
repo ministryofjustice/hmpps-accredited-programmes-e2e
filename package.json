@@ -16,7 +16,7 @@
     "dotenv": "^16.0.3",
     "eslint": "^8.24.0",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-prettier": "^9.0.0",
     "eslint-import-resolver-typescript": "^3.5.1",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-no-only-tests": "^3.0.0",
