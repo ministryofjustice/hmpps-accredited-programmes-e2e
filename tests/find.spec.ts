@@ -33,8 +33,6 @@ const showsListOfProgrammes = async (page: Page): Promise<void> => {
     'Kaizen',
     'Living as New Me (LNM)',
     'New Me Strengths (NMS)',
-    'New Me Strengths (NMS)',
-    'New Me Strengths (NMS)',
     'Thinking Skills Programme (TSP)',
   ])
 }
@@ -46,6 +44,7 @@ const showsListOfOfferings = async (page: Page): Promise<void> => {
     'Bure (HMP)',
     'Hull (HMP & YOI)',
     'Isle Of Wight (HMP & YOI)',
+    'Rye Hill (HMP)',
     'Swinfen Hall (HMP & YOI)',
     'Usk (HMP)',
     'Wakefield (HMP)',
