@@ -6,7 +6,11 @@ test('allows users to find a programme and offering', async ({ page }) => {
 
   await showsListOfProgrammes(page)
 
-  await page.locator('div[role="list"] > .govuk-grid-row:first-child a').click()
+  const rowIndexOfBecomingNewMePlusSexualOffence = await getRowIndexOfBecomingNewMePlusSexualOffence(page)
+
+  await page
+    .locator(`div[role="list"] > .govuk-grid-row:nth-child(${rowIndexOfBecomingNewMePlusSexualOffence + 1}) a`)
+    .click()
 
   await showsListOfOfferings(page)
 
@@ -35,6 +39,19 @@ const showsListOfProgrammes = async (page: Page): Promise<void> => {
     'New Me Strengths (NMS)',
     'Thinking Skills Programme (TSP)',
   ])
+}
+
+const getRowIndexOfBecomingNewMePlusSexualOffence = async (page: Page): Promise<number> => {
+  return page.evaluate(() => {
+    const rows = Array.from(document.querySelectorAll('.govuk-grid-row'))
+
+    return rows.findIndex(row => {
+      return (
+        row.querySelector('.govuk-link').textContent.trim() === 'Becoming New Me Plus (BNM+)' &&
+        row.querySelector('.govuk-tag').textContent.trim() === 'Sexual offence'
+      )
+    })
+  })
 }
 
 const showsListOfOfferings = async (page: Page): Promise<void> => {
