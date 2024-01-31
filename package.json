@@ -21,7 +21,7 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-no-only-tests": "^3.0.0",
     "eslint-plugin-prettier": "^5.0.0",
-    "eslint-plugin-sort-exports": "^0.8.0"
+    "eslint-plugin-sort-exports": "^0.9.0"
   },
   "overrides": {
     "semver": "^7.5.4"
