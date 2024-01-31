@@ -101,7 +101,7 @@ const confirmsOasys = async (page: Page): Promise<void> => {
 const entersAdditionalInformation = async (page: Page): Promise<void> => {
   await page.getByRole('link', { name: 'Add additional information' }).click()
   await expect(page.locator('h1')).toHaveText('Add additional information')
-  await page.getByLabel('Add additional information').fill('Brussel sprouts could be more popular.')
+  await page.getByLabel('Provide additional information').fill('Brussel sprouts could be more popular.')
   await page.getByRole('button', { name: 'Save and continue' }).click()
   await expect(page.getByTestId('additional-information-tag')).toHaveText('Completed')
 }
