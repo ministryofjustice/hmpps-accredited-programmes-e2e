@@ -14,7 +14,7 @@ test('allows users to find a programme and offering', async ({ page }) => {
 
   await showsListOfOfferings(page)
 
-  await page.locator('.govuk-table__row:first-child > .govuk-table__cell:nth-child(4) > a').click()
+  await page.locator('.govuk-table__row:nth-child(8) > .govuk-table__cell:nth-child(4) > a').click()
 
   await showsSingleOffering(page)
 })
@@ -72,11 +72,11 @@ const showsListOfOfferings = async (page: Page): Promise<void> => {
 
 const showsSingleOffering = async (page: Page): Promise<void> => {
   await expect(page.locator('h1')).toHaveText('Becoming New Me Plus (BNM+)')
-  await expect(page.locator('h2')).toHaveText('Bure (HMP)')
+  await expect(page.locator('h2')).toHaveText('Whatton (HMP)')
   const mailToLink = page.locator('.govuk-summary-list__value .govuk-link')
   await expect(mailToLink).toHaveAttribute(
     'href',
-    'mailto:obpbure@justice.gov.uk?subject=Accredited%20programme%20referral%20-%20Bure%20(HMP)%20-%20Becoming%20New%20Me%20Plus',
+    'mailto:whattonprogrammes@justice.gov.uk?subject=Accredited%20programme%20referral%20-%20Whatton%20(HMP)%20-%20Becoming%20New%20Me%20Plus',
   )
   await hasMakeAReferralButtonLink(page)
 }
