@@ -9,7 +9,7 @@ test('allows users to find a programme and offering', async ({ page }) => {
   const rowIndexOfBecomingNewMePlusSexualOffence = await getRowIndexOfBecomingNewMePlusSexualOffence(page)
 
   await page
-    .locator(`div[role="list"] > .govuk-grid-row:nth-child(${rowIndexOfBecomingNewMePlusSexualOffence + 1}) a`)
+    .locator(`div[role="list"] > .govuk-grid-row:nth-child(${rowIndexOfBecomingNewMePlusSexualOffence - 1}) a`)
     .click()
 
   await showsListOfOfferings(page)
@@ -47,8 +47,8 @@ const getRowIndexOfBecomingNewMePlusSexualOffence = async (page: Page): Promise<
 
     return rows.findIndex(row => {
       return (
-        row.querySelector('.govuk-link').textContent.trim() === 'Becoming New Me Plus (BNM+)' &&
-        row.querySelector('.govuk-tag').textContent.trim() === 'Sexual offence'
+        row.querySelector('.govuk-link')?.textContent.trim() === 'Becoming New Me Plus (BNM+)' &&
+        row.querySelector('.govuk-tag')?.textContent.trim() === 'Sexual offence'
       )
     })
   })
@@ -72,7 +72,7 @@ const showsListOfOfferings = async (page: Page): Promise<void> => {
 
 const showsSingleOffering = async (page: Page): Promise<void> => {
   await expect(page.locator('h1')).toHaveText('Becoming New Me Plus (BNM+)')
-  await expect(page.locator('h2')).toHaveText('Whatton (HMP)')
+  await expect(page.locator('h2.govuk-heading-m')).toHaveText('Whatton (HMP)')
   const mailToLink = page.locator('.govuk-summary-list__value .govuk-link')
   await expect(mailToLink).toHaveAttribute(
     'href',
