@@ -66,13 +66,13 @@ const entersProgrammeHistory = async (page: Page): Promise<void> => {
   await page.getByTestId('add-history-button').click()
 
   await expect(page.locator('h1')).toHaveText('Add Accredited Programme history')
-  await page.getByLabel('Horizon').click({ force: true })
+  await page.getByLabel('Horizon', { exact: true }).click()
   await page.getByRole('button', { name: 'Continue' }).click()
 
   await expect(page.locator('h1')).toHaveText('Add Accredited Programme details')
-  await page.getByTestId('custody-setting-option').click({ force: true })
+  await page.getByTestId('custody-setting-option').click()
   await page.getByLabel('Enter the prison (if known)').fill('Stocken (HMP)')
-  await page.getByTestId('complete-outcome-option').click({ force: true })
+  await page.getByTestId('complete-outcome-option').click()
   await page.getByLabel('Enter the year completed (if known)').fill('2020')
   await page.getByLabel('Provide additional detail (if known)').fill('Spiffing')
   await page.getByLabel('Provide the source').fill('The person sat next to me')
@@ -95,7 +95,7 @@ const entersProgrammeHistory = async (page: Page): Promise<void> => {
 const confirmsOasys = async (page: Page): Promise<void> => {
   await page.getByRole('link', { name: 'Confirm the OASys information' }).click()
   await expect(page.locator('h1')).toHaveText('Confirm the OASys information')
-  await page.getByLabel('I confirm that the OASys information is up to date.').check({ force: true })
+  await page.getByLabel('I confirm that the OASys information is up to date.').check()
   await page.getByRole('button', { name: 'Save and continue' }).click()
   await expect(page.getByTestId('confirm-oasys-tag')).toHaveText('Completed')
 }
@@ -114,7 +114,7 @@ const showsCheckAnswersBeforeSubmitting = async (page: Page): Promise<void> => {
 }
 
 const completesAReferral = async (page: Page): Promise<void> => {
-  await page.locator('input[name="confirmation"]').check({ force: true })
+  await page.locator('input[name="confirmation"]').check()
   await page.getByRole('button', { name: 'Submit referral' }).click()
   await expect(page.locator('h1')).toHaveText('Referral complete')
 }
