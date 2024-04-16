@@ -14,7 +14,7 @@ test('allows users to find a programme and offering', async ({ page }) => {
 
   await showsListOfOfferings(page)
 
-  await page.locator('.govuk-table__row:nth-child(8) > .govuk-table__cell:nth-child(4) > a').click()
+  await page.locator('.govuk-table__row:nth-child(7) > .govuk-table__cell:nth-child(4) > a').click()
 
   await showsSingleOffering(page)
 })
@@ -64,7 +64,6 @@ const showsListOfOfferings = async (page: Page): Promise<void> => {
     'Hull (HMP & YOI)',
     'Isle Of Wight (HMP & YOI)',
     'Rye Hill (HMP)',
-    'Swinfen Hall (HMP & YOI)',
     'Usk (HMP)',
     'Wakefield (HMP)',
     'Whatton (HMP)',
