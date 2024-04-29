@@ -31,7 +31,7 @@ const prisonNumber = 'A8731DY'
 const startsAReferral = async (page: Page): Promise<void> => {
   await expect(page.locator('h1')).toHaveText('Make a referral')
   await expect(page.locator('h2.govuk-heading-m:first-of-type')).toHaveText(
-    'Whatton (HMP) | Becoming New Me Plus: sexual offence (BNM+)',
+    'Whatton (HMP) | Becoming New Me Plus: sexual offence',
   )
   const startButton = page.getByRole('button', { name: 'Start now' })
   await expect(startButton).toHaveAttribute('href', `${offeringReferralPathBase}/new`)

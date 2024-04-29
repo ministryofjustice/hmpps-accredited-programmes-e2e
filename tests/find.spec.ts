@@ -20,26 +20,26 @@ test('allows users to find a programme and offering', async ({ page }) => {
 })
 
 const showsListOfProgrammes = async (page: Page): Promise<void> => {
-  await expect(page.locator('h1')).toHaveText('List of accredited programmes')
+  await expect(page.locator('h1')).toHaveText('Find an Accredited Programme')
   const courseLinks = page.locator('div[role="list"] a')
   expect(courseLinks).toHaveText([
-    'Becoming New Me Plus: general violence offence (BNM+)',
-    'Becoming New Me Plus: intimate partner violence offence (BNM+)',
-    'Becoming New Me Plus: sexual offence (BNM+)',
-    'Building Better Relationships (BBR)',
-    'Healthy Identity Intervention (HII)',
-    'Healthy Sex Programme (HSP)',
+    'Becoming New Me Plus: intimate partner violence offence',
+    'Becoming New Me Plus: general violence offence',
+    'Becoming New Me Plus: sexual offence',
+    'Building Better Relationships',
+    'Healthy Identity Intervention',
+    'Healthy Sex Programme',
     'Horizon',
-    'Identity Matters (IM)',
+    'Identity Matters',
     'Kaizen: general violence offence',
     'Kaizen: intimate partner violence offence',
     'Kaizen: sexual offence',
-    'Living as New Me (LNM)',
+    'Living as New Me',
     'New Me MOT',
-    'New Me Strengths: general violence offence (NMS)',
-    'New Me Strengths: intimate partner violence offence (NMS)',
-    'New Me Strengths: sexual offence (NMS)',
-    'Thinking Skills Programme (TSP)',
+    'New Me Strengths: general violence offence',
+    'New Me Strengths: sexual offence',
+    'New Me Strengths: intimate partner violence offence',
+    'Thinking Skills Programme',
   ])
 }
 
@@ -49,7 +49,7 @@ const getRowIndexOfBecomingNewMePlusSexualOffence = async (page: Page): Promise<
 
     return rows.findIndex(row => {
       return (
-        row.querySelector('.govuk-link')?.textContent.trim() === 'Becoming New Me Plus: sexual offence (BNM+)' &&
+        row.querySelector('.govuk-link')?.textContent.trim() === 'Becoming New Me Plus: sexual offence' &&
         row.querySelector('.govuk-tag')?.textContent.trim() === 'Sexual offence'
       )
     })
@@ -57,7 +57,7 @@ const getRowIndexOfBecomingNewMePlusSexualOffence = async (page: Page): Promise<
 }
 
 const showsListOfOfferings = async (page: Page): Promise<void> => {
-  await expect(page.locator('h1')).toHaveText('Becoming New Me Plus: sexual offence (BNM+)')
+  await expect(page.locator('h1')).toHaveText('Becoming New Me Plus: sexual offence')
   const prisonListItems = page.locator('.govuk-table__cell:first-child')
   await expect(prisonListItems).toHaveText([
     'Bure (HMP)',
@@ -72,12 +72,12 @@ const showsListOfOfferings = async (page: Page): Promise<void> => {
 }
 
 const showsSingleOffering = async (page: Page): Promise<void> => {
-  await expect(page.locator('h1')).toHaveText('Becoming New Me Plus: sexual offence (BNM+)')
+  await expect(page.locator('h1')).toHaveText('Becoming New Me Plus: sexual offence')
   await expect(page.locator('h2.govuk-heading-m')).toHaveText('Whatton (HMP)')
   const mailToLink = page.locator('.govuk-summary-list__value .govuk-link')
   await expect(mailToLink).toHaveAttribute(
     'href',
-    'mailto:whattonprogrammes@justice.gov.uk?subject=Accredited%20programme%20referral%20-%20Whatton%20(HMP)%20-%20Becoming%20New%20Me%20Plus%3A%20sexual%20offence',
+    'mailto:whattonprogrammes@justice.gov.uk?subject=Accredited%20programme%20referral%20-%20Whatton%20(HMP)%20-%20Becoming%20New%20Me%20Plus',
   )
   await hasMakeAReferralButtonLink(page)
 }
