@@ -23,7 +23,7 @@ test('allows users to make a referral', async ({ page }) => {
   await completesAReferral(page)
 })
 
-const offeringReferralPathBase = '/offerings/72820fe9-ad4a-4d1a-b730-ded300075749/referrals'
+const offeringReferralPathBase = '/find/offerings/72820fe9-ad4a-4d1a-b730-ded300075749/referrals'
 const referStartPath = `${offeringReferralPathBase}/start`
 
 const prisonNumber = 'A8731DY'
