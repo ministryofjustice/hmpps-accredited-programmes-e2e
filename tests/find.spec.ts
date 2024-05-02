@@ -2,7 +2,7 @@ import type { Page } from '@playwright/test'
 import { expect, test } from '@playwright/test'
 
 test('allows users to find a programme and offering', async ({ page }) => {
-  await page.goto('/programmes')
+  await page.goto('/find/programmes')
 
   await showsListOfProgrammes(page)
 
@@ -23,8 +23,8 @@ const showsListOfProgrammes = async (page: Page): Promise<void> => {
   await expect(page.locator('h1')).toHaveText('Find an Accredited Programme')
   const courseLinks = page.locator('div[role="list"] a')
   expect(courseLinks).toHaveText([
-    'Becoming New Me Plus: intimate partner violence offence',
     'Becoming New Me Plus: general violence offence',
+    'Becoming New Me Plus: intimate partner violence offence',
     'Becoming New Me Plus: sexual offence',
     'Building Better Relationships',
     'Healthy Identity Intervention',
