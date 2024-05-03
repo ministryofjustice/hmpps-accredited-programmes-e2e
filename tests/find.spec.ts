@@ -14,7 +14,7 @@ test('allows users to find a programme and offering', async ({ page }) => {
 
   await showsListOfOfferings(page)
 
-  await page.locator('.govuk-table__row:nth-child(7) > .govuk-table__cell:nth-child(4) > a').click()
+  await page.locator('.govuk-table__row:nth-child(7) > .govuk-table__cell:nth-child(1) > a').click()
 
   await showsSingleOffering(page)
 })
