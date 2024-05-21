@@ -89,7 +89,7 @@ const entersProgrammeHistory = async (page: Page): Promise<void> => {
 
   await expect(page.locator('h1')).toHaveText('Accredited Programme history')
   await expect(page.locator('.moj-banner__message')).toContainText('You have successfully removed a programme.')
-  await page.getByRole('button', { name: 'Skip this section' }).click()
+  await page.getByRole('button', { name: 'Return to tasklist' }).click()
 }
 
 const confirmsOasys = async (page: Page): Promise<void> => {
