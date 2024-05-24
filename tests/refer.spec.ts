@@ -96,7 +96,7 @@ const confirmsOasys = async (page: Page): Promise<void> => {
   await page.getByRole('link', { name: 'Confirm the OASys information' }).click()
   await expect(page.locator('h1')).toHaveText('Confirm the OASys information')
   await page.getByLabel('I confirm that the OASys information is up to date.').check()
-  await page.getByRole('button', { name: 'Save and continue' }).click()
+  await page.getByTestId('oasys-confirmation-submit-button').click()
   await expect(page.getByTestId('confirm-oasys-tag')).toHaveText('Completed')
 }
 
@@ -104,7 +104,7 @@ const entersAdditionalInformation = async (page: Page): Promise<void> => {
   await page.getByRole('link', { name: 'Add additional information' }).click()
   await expect(page.locator('h1')).toHaveText('Add additional information')
   await page.getByLabel('Provide additional information').fill('Brussel sprouts could be more popular.')
-  await page.getByRole('button', { name: 'Save and continue' }).click()
+  await page.getByTestId('additional-information-submit-button').click()
   await expect(page.getByTestId('additional-information-tag')).toHaveText('Completed')
 }
 
