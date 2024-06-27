@@ -1,5 +1,6 @@
 import type { Page } from '@playwright/test'
 import { expect, test } from '@playwright/test'
+
 import playwrightConfig from 'playwright.config'
 
 test('allows users to find a programme and offering', async ({ page }) => {
