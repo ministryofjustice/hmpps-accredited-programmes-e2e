@@ -1,5 +1,6 @@
 import type { Page } from '@playwright/test'
 import { expect, test } from '@playwright/test'
+import playwrightConfig from 'playwright.config'
 
 test('allows users to find a programme and offering', async ({ page }) => {
   await page.goto('/find/programmes')
@@ -83,8 +84,7 @@ const showsSingleOffering = async (page: Page): Promise<void> => {
 }
 
 const hasMakeAReferralButtonLink = async (page: Page): Promise<void> => {
-  const baseUrl = 'https://accredited-programmes-dev.hmpps.service.justice.gov.uk'
-  const currentPath = page.url().replace(baseUrl, '')
+  const currentPath = page.url().replace(playwrightConfig.use.baseURL, '')
   const makeAReferralButton = page.locator('.govuk-button')
   await expect(makeAReferralButton).toHaveAttribute('href', `${currentPath}/referrals/start`)
 }
