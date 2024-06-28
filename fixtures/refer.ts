@@ -14,9 +14,87 @@ export default class Refer {
     this.referStartPath = `${this.offeringReferralPathBase}/start`
   }
 
-  createDraftReferral = async () => {
+  async confirmsOasys() {
+    await this.page.getByRole('link', { name: 'Confirm the OASys information' }).click()
+    await expect(this.page.locator('h1')).toHaveText('Confirm the OASys information')
+    await this.page.getByLabel('I confirm that the OASys information is up to date.').check()
+    await this.page.getByTestId('oasys-confirmation-submit-button').click()
+    await expect(this.page.getByTestId('confirm-oasys-tag')).toHaveText('Completed')
+  }
+
+  async completesAReferral() {
+    await this.page.locator('input[name="confirmation"]').check()
+    await this.page.getByRole('button', { name: 'Submit referral' }).click()
+    await expect(this.page.locator('h1')).toHaveText('Referral complete')
+  }
+
+  async createDraftReferral() {
     await this.page.getByRole('button', { name: 'Continue' }).click()
     await expect(this.page.locator('h1')).toHaveText('Make a referral')
+  }
+
+  async entersAdditionalInformation() {
+    await this.page.getByRole('link', { name: 'Add additional information' }).click()
+    await expect(this.page.locator('h1')).toHaveText('Add additional information')
+    await this.page.getByLabel('Provide additional information').fill('Brussel sprouts could be more popular.')
+    await this.page.getByTestId('additional-information-submit-button').click()
+    await expect(this.page.getByTestId('additional-information-tag')).toHaveText('Completed')
+  }
+
+  async entersProgrammeHistory() {
+    await this.page.getByRole('link', { name: 'Review Accredited Programme history' }).click()
+
+    await expect(this.page.locator('h1')).toHaveText('Accredited Programme history')
+    await this.page.getByTestId('add-history-button').click()
+
+    await expect(this.page.locator('h1')).toHaveText('Add Accredited Programme history')
+    await this.page.getByLabel('Horizon', { exact: true }).click()
+    await this.page.getByRole('button', { name: 'Continue' }).click()
+
+    await expect(this.page.locator('h1')).toHaveText('Add Accredited Programme details')
+    await this.page.getByTestId('custody-setting-option').click()
+    await this.page.getByLabel('Enter the prison (if known)').fill('Stocken (HMP)')
+    await this.page.getByTestId('complete-outcome-option').click()
+    await this.page.getByLabel('Enter the year completed (if known)').fill('2020')
+    await this.page.getByLabel('Provide additional detail (if known)').fill('Spiffing')
+    await this.page.getByLabel('Provide the source').fill('The person sat next to me')
+    await this.page.getByRole('button', { name: 'Continue' }).click()
+
+    await expect(this.page.locator('h1')).toHaveText('Accredited Programme history')
+    await expect(this.page.locator('.moj-banner__message')).toContainText('You have successfully added a programme.')
+    const summaryCard = this.page.locator('.govuk-summary-card').last()
+    await expect(summaryCard.locator('.govuk-summary-card__title')).toContainText('Horizon')
+    await summaryCard.locator('.govuk-summary-card__action').last().click()
+
+    await expect(this.page.locator('h1')).toHaveText('Remove programme')
+    await this.page.getByRole('button', { name: 'Confirm' }).click()
+
+    await expect(this.page.locator('h1')).toHaveText('Accredited Programme history')
+    await expect(this.page.locator('.moj-banner__message')).toContainText('You have successfully removed a programme.')
+    await this.page.getByRole('button', { name: 'Return to tasklist' }).click()
+  }
+
+  async search() {
+    await expect(this.page.locator('h1')).toHaveText("Enter the person's identifier")
+    await this.page
+      .getByLabel("Enter the prison number. We'll import their details into your application.")
+      .fill(this.prisonNumber)
+    await this.page.getByRole('button', { name: 'Continue' }).click()
+    await expect(this.page.locator('h1')).toHaveText("Confirm Andrew Smith's details")
+    await expect(this.page.locator('.govuk-summary-list__row:nth-child(2) .govuk-summary-list__value')).toHaveText(
+      this.prisonNumber,
+    )
+  }
+
+  async showsCheckAnswersBeforeSubmitting() {
+    await this.page.getByRole('link', { name: 'Check answers and submit' }).click()
+    await expect(this.page.locator('h1')).toHaveText('Check your answers')
+  }
+
+  async showsPersonalDetails() {
+    await this.page.getByRole('link', { name: 'Confirm personal details' }).click()
+    await expect(this.page.locator('h1')).toHaveText("Andrew Smith's details")
+    await this.page.getByRole('link', { name: 'Back', exact: true }).click()
   }
 
   async start() {
@@ -30,15 +108,15 @@ export default class Refer {
     startButton.click()
   }
 
-  async search() {
-    await expect(this.page.locator('h1')).toHaveText("Enter the person's identifier")
-    await this.page
-      .getByLabel("Enter the prison number. We'll import their details into your application.")
-      .fill(this.prisonNumber)
-    await this.page.getByRole('button', { name: 'Continue' }).click()
-    await expect(this.page.locator('h1')).toHaveText("Confirm Andrew Smith's details")
-    await expect(this.page.locator('.govuk-summary-list__row:nth-child(2) .govuk-summary-list__value')).toHaveText(
-      this.prisonNumber,
-    )
+  async submitFullReferral() {
+    await this.start()
+    await this.search()
+    await this.createDraftReferral()
+    await this.showsPersonalDetails()
+    await this.entersProgrammeHistory()
+    await this.confirmsOasys()
+    await this.entersAdditionalInformation()
+    await this.showsCheckAnswersBeforeSubmitting()
+    await this.completesAReferral()
   }
 }
