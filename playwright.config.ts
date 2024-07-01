@@ -10,6 +10,7 @@ export default defineConfig({
   reporter: 'html',
   use: {
     baseURL: 'https://accredited-programmes-dev.hmpps.service.justice.gov.uk',
+    testIdAttribute: 'data-testid',
     trace: 'on-first-retry',
     video: 'on-first-retry',
   },
