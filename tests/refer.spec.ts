@@ -1,14 +1,16 @@
 import type { Page } from '@playwright/test'
 import { expect, test } from '@playwright/test'
 
+import Refer from '../fixtures/refer'
+
 test('allows users to make a referral', async ({ page }) => {
-  await page.goto(referStartPath)
+  const refer = new Refer(page)
 
-  await startsAReferral(page)
+  await refer.start()
 
-  await searchesForAPrisoner(page)
+  await refer.search()
 
-  await createsAReferral(page)
+  await refer.createDraftReferral()
 
   await showsPersonalDetails(page)
 
@@ -22,36 +24,6 @@ test('allows users to make a referral', async ({ page }) => {
 
   await completesAReferral(page)
 })
-
-const offeringReferralPathBase = '/find/offerings/72820fe9-ad4a-4d1a-b730-ded300075749/referrals'
-const referStartPath = `${offeringReferralPathBase}/start`
-
-const prisonNumber = 'A8731DY'
-
-const startsAReferral = async (page: Page): Promise<void> => {
-  await expect(page.locator('h1')).toHaveText('Make a referral')
-  await expect(page.locator('h2.govuk-heading-m:first-of-type')).toHaveText(
-    'Whatton (HMP) | Becoming New Me Plus: sexual offence',
-  )
-  const startButton = page.getByRole('button', { name: 'Start now' })
-  await expect(startButton).toHaveAttribute('href', `${offeringReferralPathBase}/new`)
-  startButton.click()
-}
-
-const searchesForAPrisoner = async (page: Page): Promise<void> => {
-  await expect(page.locator('h1')).toHaveText("Enter the person's identifier")
-  await page.getByLabel("Enter the prison number. We'll import their details into your application.").fill(prisonNumber)
-  await page.getByRole('button', { name: 'Continue' }).click()
-  await expect(page.locator('h1')).toHaveText("Confirm Andrew Smith's details")
-  await expect(page.locator('.govuk-summary-list__row:nth-child(2) .govuk-summary-list__value')).toHaveText(
-    prisonNumber,
-  )
-}
-
-const createsAReferral = async (page: Page): Promise<void> => {
-  await page.getByRole('button', { name: 'Continue' }).click()
-  await expect(page.locator('h1')).toHaveText('Make a referral')
-}
 
 const showsPersonalDetails = async (page: Page): Promise<void> => {
   await page.getByRole('link', { name: 'Confirm personal details' }).click()
