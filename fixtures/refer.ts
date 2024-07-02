@@ -14,6 +14,28 @@ export default class Refer {
     this.referStartPath = `${this.offeringReferralPathBase}/start`
   }
 
+  async addAndRemoveHold() {
+    await this.page.getByRole('button', { name: 'Put on hold' }).click()
+
+    await expect(this.page.locator('h1')).toHaveText('Put referral on hold')
+    await this.page.getByRole('textbox').fill('E2E test put on hold reason')
+    await this.page.getByRole('button', { name: 'Submit' }).click()
+
+    await expect(this.page.getByTestId('status-history-timeline').locator('.govuk-tag').first()).toHaveText(
+      'On hold - referral submitted',
+    )
+
+    await this.page.getByRole('button', { name: 'Remove hold' }).click()
+
+    await expect(this.page.locator('h1')).toHaveText('Remove the referral from hold')
+    await this.page.getByRole('textbox').fill('E2E test remove hold reason')
+    await this.page.getByRole('button', { name: 'Submit' }).click()
+
+    await expect(this.page.getByTestId('status-history-timeline').locator('.govuk-tag').first()).toHaveText(
+      'Referral submitted',
+    )
+  }
+
   async confirmsOasys() {
     await this.page.getByRole('link', { name: 'Confirm the OASys information' }).click()
     await expect(this.page.locator('h1')).toHaveText('Confirm the OASys information')
@@ -31,6 +53,15 @@ export default class Refer {
   async createDraftReferral() {
     await this.page.getByRole('button', { name: 'Continue' }).click()
     await expect(this.page.locator('h1')).toHaveText('Make a referral')
+  }
+
+  async deleteDraftReferral() {
+    await this.page.getByRole('button', { name: 'Delete draft referral' }).click()
+    await expect(this.page.locator('h1')).toHaveText('Delete draft referral?')
+    await this.page.getByRole('button', { name: 'Delete draft' }).click()
+    await expect(this.page.getByRole('alert', { name: 'Draft deleted' })).toContainText(
+      'Draft referral for Andrew Smith deleted.',
+    )
   }
 
   async entersAdditionalInformation() {
@@ -108,15 +139,27 @@ export default class Refer {
     startButton.click()
   }
 
-  async submitFullReferral() {
-    await this.start()
-    await this.search()
-    await this.createDraftReferral()
-    await this.showsPersonalDetails()
-    await this.entersProgrammeHistory()
-    await this.confirmsOasys()
-    await this.entersAdditionalInformation()
-    await this.showsCheckAnswersBeforeSubmitting()
-    await this.completesAReferral()
+  async viewStatusHistoryPage(referralId: string) {
+    await this.page.goto(`/refer/referrals/${referralId}/status-history`)
+    await expect(this.page.locator('h1')).toHaveText('Referral to Becoming New Me Plus: sexual offence')
+  }
+
+  async withdrawReferral() {
+    await this.page.getByRole('button', { name: 'Withdraw referral' }).click()
+
+    await expect(this.page.locator('h1')).toHaveText('Withdraw referral')
+    await this.page.getByLabel('Administrative error').check()
+    await this.page.getByRole('button', { name: 'Continue' }).click()
+
+    await expect(this.page.locator('h1')).toHaveText('Withdrawal reason')
+    await this.page.getByLabel('Duplicate referral').check()
+    await this.page.getByRole('button', { name: 'Continue' }).click()
+
+    await expect(this.page.locator('h1')).toHaveText('Withdraw referral')
+    await this.page.getByRole('textbox').fill('E2E test withdrawal reason')
+    await this.page.getByRole('button', { name: 'Submit' }).click()
+
+    await expect(this.page.getByTestId('status-history-timeline').locator('.govuk-tag').first()).toHaveText('Withdrawn')
+    await expect(this.page.getByRole('button', { name: 'Withdraw referral' })).toBeDisabled()
   }
 }
