@@ -3,6 +3,8 @@ import { test } from '@playwright/test'
 import Assess from '../fixtures/assess'
 import Refer from '../fixtures/refer'
 
+test.use({ storageState: 'playwright/.auth/ptUser.json' })
+
 test('allows an assess user to update the status of a referral', async ({ page }) => {
   const refer = new Refer(page)
 
@@ -14,7 +16,9 @@ test('allows an assess user to update the status of a referral', async ({ page }
 
   await refer.showsPersonalDetails()
 
-  await refer.entersProgrammeHistory()
+  await refer.viewProgrammeHistory()
+
+  await refer.returnToTaskList()
 
   await refer.confirmsOasys()
 
