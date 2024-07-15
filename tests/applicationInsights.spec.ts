@@ -1,5 +1,7 @@
 import { expect, test } from '@playwright/test'
 
+test.use({ storageState: 'playwright/.auth/referrerUser.json' })
+
 test('sets the Application Insights cookies', async ({ page }) => {
   await page.goto('/')
 

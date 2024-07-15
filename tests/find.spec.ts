@@ -3,6 +3,8 @@ import { expect, test } from '@playwright/test'
 
 import playwrightConfig from 'playwright.config'
 
+test.use({ storageState: 'playwright/.auth/referrerUser.json' })
+
 test('allows users to find a programme and offering', async ({ page }) => {
   await page.goto('/find/programmes')
 

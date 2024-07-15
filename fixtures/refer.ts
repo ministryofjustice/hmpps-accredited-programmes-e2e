@@ -72,10 +72,7 @@ export default class Refer {
     await expect(this.page.getByTestId('additional-information-tag')).toHaveText('Completed')
   }
 
-  async entersProgrammeHistory() {
-    await this.page.getByRole('link', { name: 'Review Accredited Programme history' }).click()
-
-    await expect(this.page.locator('h1')).toHaveText('Accredited Programme history')
+  async addProgrammeHistoryEntry() {
     await this.page.getByTestId('add-history-button').click()
 
     await expect(this.page.locator('h1')).toHaveText('Add Accredited Programme history')
@@ -93,6 +90,14 @@ export default class Refer {
 
     await expect(this.page.locator('h1')).toHaveText('Accredited Programme history')
     await expect(this.page.locator('.moj-banner__message')).toContainText('You have successfully added a programme.')
+  }
+
+  async viewProgrammeHistory() {
+    await this.page.getByRole('link', { name: 'Review Accredited Programme history' }).click()
+    await expect(this.page.locator('h1')).toHaveText('Accredited Programme history')
+  }
+
+  async removeProgrammeHistoryEntry() {
     const summaryCard = this.page.locator('.govuk-summary-card').last()
     await expect(summaryCard.locator('.govuk-summary-card__title')).toContainText('Horizon')
     await summaryCard.locator('.govuk-summary-card__action').last().click()
@@ -102,6 +107,9 @@ export default class Refer {
 
     await expect(this.page.locator('h1')).toHaveText('Accredited Programme history')
     await expect(this.page.locator('.moj-banner__message')).toContainText('You have successfully removed a programme.')
+  }
+
+  async returnToTaskList() {
     await this.page.getByRole('button', { name: 'Return to tasklist' }).click()
   }
 
