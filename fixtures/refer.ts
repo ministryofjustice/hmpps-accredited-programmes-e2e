@@ -37,7 +37,7 @@ export default class Refer {
   }
 
   async confirmsOasys() {
-    await this.page.getByRole('link', { name: 'Confirm the OASys information' }).click()
+    await this.page.getByRole('link', { name: 'Check risks and needs information (OASys)' }).click()
     await expect(this.page.locator('h1')).toHaveText('Check risks and needs information (OASys)')
     await this.page.getByLabel('I confirm that the OASys information is up to date.').check()
     await this.page.getByTestId('oasys-confirmation-submit-button').click()
