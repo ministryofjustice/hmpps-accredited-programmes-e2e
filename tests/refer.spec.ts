@@ -4,8 +4,12 @@ import Refer from '../fixtures/refer'
 
 test.use({ storageState: 'playwright/.auth/referrerUser.json' })
 
+const offeringId = '72820fe9-ad4a-4d1a-b730-ded300075749'
+const offeringLocation = 'Whatton (HMP)'
+const offeringName = 'Becoming New Me Plus: sexual offence'
+
 test('allows users to create and delete a draft referral', async ({ page }) => {
-  const refer = new Refer(page)
+  const refer = new Refer(page, offeringId, offeringLocation, offeringName)
 
   await refer.start()
 
@@ -17,7 +21,7 @@ test('allows users to create and delete a draft referral', async ({ page }) => {
 })
 
 test('allows users to submit a referral, put it on hold, remove it from hold and withdraw it', async ({ page }) => {
-  const refer = new Refer(page)
+  const refer = new Refer(page, offeringId, offeringLocation, offeringName)
 
   await refer.start()
 

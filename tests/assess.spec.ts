@@ -5,8 +5,12 @@ import Refer from '../fixtures/refer'
 
 test.use({ storageState: 'playwright/.auth/ptUser.json' })
 
+const offeringId = '1f9441c1-4fc0-4127-a2ef-88be481fba1c'
+const offeringLocation = 'Whatton (HMP)'
+const offeringName = 'Horizon'
+
 test('allows an assess user to update the status of a referral', async ({ page }) => {
-  const refer = new Refer(page)
+  const refer = new Refer(page, offeringId, offeringLocation, offeringName)
 
   await refer.start()
 
@@ -30,7 +34,7 @@ test('allows an assess user to update the status of a referral', async ({ page }
 
   const referralId = page.url().split('/')[6]
 
-  const assess = new Assess(page)
+  const assess = new Assess(page, offeringName)
 
   await assess.viewStatusHistoryPage(referralId)
 
