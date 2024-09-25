@@ -6,7 +6,10 @@ export default class Assess {
 
   private readonly submitButton: Locator
 
-  constructor(public readonly page: Page) {
+  constructor(
+    public readonly page: Page,
+    public readonly offeringName: string,
+  ) {
     this.continueButton = this.page.getByRole('button', { name: 'Continue' })
     this.submitButton = this.page.getByRole('button', { name: 'Submit' })
   }
@@ -58,7 +61,7 @@ export default class Assess {
 
   async viewStatusHistoryPage(referralId: string) {
     await this.page.goto(`/assess/referrals/${referralId}/status-history`)
-    await expect(this.page.locator('h1')).toHaveText('Referral to Becoming New Me Plus: sexual offence')
+    await expect(this.page.locator('h1')).toHaveText(`Referral to ${this.offeringName}`)
   }
 
   private async assertStatusHistoryTag(tag: string) {

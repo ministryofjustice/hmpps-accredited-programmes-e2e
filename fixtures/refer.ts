@@ -8,8 +8,15 @@ export default class Refer {
 
   private readonly referStartPath: string
 
-  constructor(public readonly page: Page) {
-    this.offeringReferralPathBase = '/find/offerings/72820fe9-ad4a-4d1a-b730-ded300075749/referrals'
+  constructor(
+    public readonly page: Page,
+    public readonly offeringId: string,
+    public readonly offeringLocation: string,
+    public readonly offeringName: string,
+  ) {
+    this.offeringReferralPathBase = `/find/offerings/${offeringId}/referrals`
+    this.offeringLocation = offeringLocation
+    this.offeringName = offeringName
     this.prisonNumber = 'A8731DY'
     this.referStartPath = `${this.offeringReferralPathBase}/start`
   }
@@ -140,7 +147,7 @@ export default class Refer {
     await this.page.goto(this.referStartPath)
     await expect(this.page.locator('h1')).toHaveText('Make a referral')
     await expect(this.page.locator('h2.govuk-heading-m:first-of-type')).toHaveText(
-      'Whatton (HMP) | Becoming New Me Plus: sexual offence',
+      `${this.offeringLocation} | ${this.offeringName}`,
     )
     const startButton = this.page.getByRole('button', { name: 'Start now' })
     await expect(startButton).toHaveAttribute('href', `${this.offeringReferralPathBase}/new`)
@@ -149,7 +156,7 @@ export default class Refer {
 
   async viewStatusHistoryPage(referralId: string) {
     await this.page.goto(`/refer/referrals/${referralId}/status-history`)
-    await expect(this.page.locator('h1')).toHaveText('Referral to Becoming New Me Plus: sexual offence')
+    await expect(this.page.locator('h1')).toHaveText(`Referral to ${this.offeringName}`)
   }
 
   async withdrawReferral() {
