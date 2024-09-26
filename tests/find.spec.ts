@@ -88,6 +88,6 @@ const showsSingleOffering = async (page: Page): Promise<void> => {
 
 const hasMakeAReferralButtonLink = async (page: Page): Promise<void> => {
   const currentPath = page.url().replace(playwrightConfig.use.baseURL, '')
-  const makeAReferralButton = page.locator('.govuk-button')
+  const makeAReferralButton = page.locator('.govuk-button').getByText('Make a referral')
   await expect(makeAReferralButton).toHaveAttribute('href', `${currentPath}/referrals/start`)
 }
