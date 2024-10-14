@@ -31,6 +31,7 @@ const showsListOfProgrammes = async (page: Page): Promise<void> => {
     'Becoming New Me Plus: intimate partner violence offence',
     'Becoming New Me Plus: sexual offence',
     'Building Better Relationships',
+    'Control of Violence for Angry Impulsive Drinkers',
     'Healthy Identity Intervention',
     'Healthy Sex Programme',
     'Horizon',
