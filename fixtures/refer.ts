@@ -123,7 +123,7 @@ export default class Refer {
   async search() {
     await expect(this.page.locator('h1')).toHaveText("Enter the person's identifier")
     await this.page
-      .getByLabel("Enter the prison number. We'll import their details into your application.")
+      .getByLabel("Enter a prison number. We'll import the person's details into the referral.")
       .fill(this.prisonNumber)
     await this.page.getByRole('button', { name: 'Continue' }).click()
     await expect(this.page.locator('h1')).toHaveText("Confirm Andrew Smith's details")
