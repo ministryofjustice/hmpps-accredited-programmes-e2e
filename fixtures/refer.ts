@@ -162,10 +162,6 @@ export default class Refer {
   async withdrawReferral() {
     await this.page.getByRole('button', { name: 'Withdraw referral' }).click()
 
-    await expect(this.page.locator('h1')).toHaveText('Withdraw referral')
-    await this.page.getByLabel('Administrative error').check()
-    await this.page.getByRole('button', { name: 'Continue' }).click()
-
     await expect(this.page.locator('h1')).toHaveText('Withdrawal reason')
     await this.page.getByLabel('Duplicate referral').check()
     await this.page.getByRole('button', { name: 'Continue' }).click()

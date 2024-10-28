@@ -19,8 +19,8 @@ export default class Assess {
 
     await this.checkRadioAndContinue('Deselect and close referral')
 
-    await expect(this.page.locator('h1')).toHaveText('Deselection category')
-    await this.checkRadioAndContinue('Other')
+    await expect(this.page.locator('h1')).toHaveText('Deselection reason')
+    await this.checkRadioAndContinue('Did not return from court')
 
     await expect(this.page.locator('h1')).toHaveText('Deselect person: close referral')
     await this.enterAdditionalInformation()
@@ -34,8 +34,8 @@ export default class Assess {
 
     await this.checkRadioAndContinue('Deselect and keep referral open')
 
-    await expect(this.page.locator('h1')).toHaveText('Deselection category')
-    await this.checkRadioAndContinue('Other')
+    await expect(this.page.locator('h1')).toHaveText('Deselection reason')
+    await this.checkRadioAndContinue('Did not return from court')
 
     await expect(this.page.locator('h1')).toHaveText('Deselection: keep referral open')
     await this.checkRadioAndContinue('Assessed as suitable and ready')
