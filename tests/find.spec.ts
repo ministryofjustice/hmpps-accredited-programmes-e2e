@@ -74,7 +74,6 @@ const showsListOfOfferings = async (page: Page): Promise<void> => {
     'Usk (HMP)',
     'Wakefield (HMP)',
     'Whatton (HMP)',
-    'Wymott (HMP & YOI)',
   ])
 }
 
