@@ -105,9 +105,11 @@ export default class Refer {
   }
 
   async removeProgrammeHistoryEntry() {
-    const summaryCard = this.page.locator('.govuk-summary-card').last()
-    await expect(summaryCard.locator('.govuk-summary-card__title')).toContainText('Horizon')
-    await summaryCard.locator('.govuk-summary-card__action').last().click()
+    const draftHistoryTable = this.page.getByTestId('referral-participations')
+    const firstBodyRow = draftHistoryTable.locator('.govuk-table__body').locator('.govuk-table__row').first()
+    const actionsCell = firstBodyRow.locator('.govuk-table__cell').last()
+
+    await actionsCell.getByText('Remove').click()
 
     await expect(this.page.locator('h1')).toHaveText('Remove programme')
     await this.page.getByRole('button', { name: 'Confirm' }).click()
