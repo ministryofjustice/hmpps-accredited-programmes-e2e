@@ -6,19 +6,16 @@ export default class Refer {
 
   private readonly prisonNumber: string
 
-  private readonly referStartPath: string
-
   constructor(
     public readonly page: Page,
     public readonly offeringId: string,
     public readonly offeringLocation: string,
-    public readonly offeringName: string,
+    public readonly programmeName: string,
   ) {
     this.offeringReferralPathBase = `/find/offerings/${offeringId}/referrals`
     this.offeringLocation = offeringLocation
-    this.offeringName = offeringName
+    this.programmeName = programmeName
     this.prisonNumber = 'A8731DY'
-    this.referStartPath = `${this.offeringReferralPathBase}/start`
   }
 
   async addAndRemoveHold() {
@@ -58,6 +55,7 @@ export default class Refer {
   }
 
   async createDraftReferral() {
+    await expect(this.page.locator('h1')).toHaveText("Confirm Andrew Smith's details")
     await this.page.getByRole('button', { name: 'Continue' }).click()
     await expect(this.page.locator('h1')).toHaveText('Make a referral')
   }
@@ -123,15 +121,14 @@ export default class Refer {
   }
 
   async search() {
-    await expect(this.page.locator('h1')).toHaveText("Enter the person's identifier")
+    await expect(this.page.locator('h1')).toHaveText('Find recommended programmes')
     await this.page
-      .getByLabel("Enter a prison number. We'll import the person's details into the referral.")
+      .getByLabel(
+        "Enter a prison number to check what programmes are recommended based on the person's risks and needs.",
+      )
       .fill(this.prisonNumber)
     await this.page.getByRole('button', { name: 'Continue' }).click()
-    await expect(this.page.locator('h1')).toHaveText("Confirm Andrew Smith's details")
-    await expect(this.page.locator('.govuk-summary-list__row:nth-child(2) .govuk-summary-list__value')).toHaveText(
-      this.prisonNumber,
-    )
+    await expect(this.page.locator('h1')).toHaveText('Recommended programme pathway for Andrew Smith')
   }
 
   async showsCheckAnswersBeforeSubmitting() {
@@ -146,19 +143,19 @@ export default class Refer {
   }
 
   async start() {
-    await this.page.goto(this.referStartPath)
+    await this.page.getByRole('button', { name: 'Make a referral', exact: true }).click()
     await expect(this.page.locator('h1')).toHaveText('Make a referral')
     await expect(this.page.locator('h2.govuk-heading-m:first-of-type')).toHaveText(
-      `${this.offeringLocation} | ${this.offeringName}`,
+      `${this.offeringLocation} | ${this.programmeName}`,
     )
     const startButton = this.page.getByRole('button', { name: 'Start now' })
-    await expect(startButton).toHaveAttribute('href', `${this.offeringReferralPathBase}/new`)
+    await expect(startButton).toHaveAttribute('href', `${this.offeringReferralPathBase}/people/${this.prisonNumber}`)
     startButton.click()
   }
 
   async viewStatusHistoryPage(referralId: string) {
     await this.page.goto(`/refer/referrals/${referralId}/status-history`)
-    await expect(this.page.locator('h1')).toHaveText(`Referral to ${this.offeringName}`)
+    await expect(this.page.locator('h1')).toHaveText(`Referral to ${this.programmeName}`)
   }
 
   async withdrawReferral() {

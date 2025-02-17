@@ -2,19 +2,41 @@ import { test } from '@playwright/test'
 
 import Assess from '../fixtures/assess'
 import Refer from '../fixtures/refer'
+import Find from 'fixtures/find'
 
 test.use({ storageState: 'playwright/.auth/ptUser.json' })
 
 const offeringId = '1f9441c1-4fc0-4127-a2ef-88be481fba1c'
 const offeringLocation = 'Whatton (HMP)'
-const offeringName = 'Horizon'
+const programmeName = 'Horizon'
+const programmeOfferings = [
+  'Ashfield (HMP)',
+  'Bullingdon (HMP & YOI)',
+  'Bure (HMP)',
+  'Channings Wood (HMP)',
+  'Doncaster (HMP & YOI)',
+  'Fosse Way (HMP & YOI)',
+  'Garth (HMP)',
+  'High Down (HMP & YOI)',
+  'Hull (HMP & YOI)',
+  'Isle Of Wight (HMP & YOI)',
+  'Littlehey (HMP)',
+  'Moorland (HMP & YOI)',
+  'Northumberland (HMP)',
+  'Rye Hill (HMP)',
+  'Usk (HMP)',
+  'Whatton (HMP)',
+]
 
 test('allows an assess user to update the status of a referral', async ({ page }) => {
-  const refer = new Refer(page, offeringId, offeringLocation, offeringName)
+  const find = new Find(page, programmeName, programmeOfferings)
+  const refer = new Refer(page, offeringId, offeringLocation, programmeName)
+
+  await find.findProgrammesForPrisoner()
+
+  await find.selectProgrammeAndOffering(programmeName, offeringLocation)
 
   await refer.start()
-
-  await refer.search()
 
   await refer.createDraftReferral()
 
@@ -34,7 +56,7 @@ test('allows an assess user to update the status of a referral', async ({ page }
 
   const referralId = page.url().split('/')[6]
 
-  const assess = new Assess(page, offeringName)
+  const assess = new Assess(page, programmeName)
 
   await assess.viewStatusHistoryPage(referralId)
 
