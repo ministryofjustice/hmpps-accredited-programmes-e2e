@@ -79,6 +79,12 @@ export default class Assess {
   }
 
   private async startStatusUpdate() {
+    const menuButton = this.page.getByRole('button', { name: 'Update referral' })
+
+    if (await menuButton.isVisible()) {
+      await menuButton.click()
+    }
+
     await this.page.getByRole('button', { name: 'Update status' }).click()
     await expect(this.page.locator('h1')).toHaveText('Update referral status')
   }
