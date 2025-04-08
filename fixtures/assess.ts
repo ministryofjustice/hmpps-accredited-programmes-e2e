@@ -51,6 +51,12 @@ export default class Assess {
 
     await this.checkRadioAndContinue(decisionLabel)
 
+    const overrideReasonTitle = this.page.locator('h1', { hasText: 'Reason why the referral does not match the PNI' })
+
+    if (await overrideReasonTitle.isVisible()) {
+      await this.checkRadioAndContinue('The risk and need assessment is outdated')
+    }
+
     await expect(this.page.locator('h1')).toHaveText(
       decisionHeading || `Move referral to ${decisionLabel.toLowerCase()}`,
     )
