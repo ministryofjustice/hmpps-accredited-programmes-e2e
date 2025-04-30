@@ -72,7 +72,8 @@ export default class Refer {
   async entersAdditionalInformation() {
     await this.page.getByRole('link', { name: 'Add additional information' }).click()
     await expect(this.page.locator('h1')).toHaveText('Add additional information')
-    await this.page.getByLabel('Provide additional information').fill('Brussel sprouts could be more popular.')
+    await this.page.getByLabel('Reason for override').fill('Override reason.')
+    await this.page.getByLabel('Additional information').fill('Brussel sprouts could be more popular.')
     await this.page.getByTestId('additional-information-submit-button').click()
     await expect(this.page.getByTestId('additional-information-tag')).toHaveText('Completed')
   }
