@@ -12,19 +12,15 @@ const programmeName = 'Horizon'
 const programmeOfferings = [
   'Ashfield (HMP)',
   'Bullingdon (HMP & YOI)',
-  'Bure (HMP)',
   'Channings Wood (HMP)',
   'Doncaster (HMP & YOI)',
   'Fosse Way (HMP & YOI)',
-  'Garth (HMP)',
   'High Down (HMP & YOI)',
-  'Hull (HMP & YOI)',
   'Isle Of Wight (HMP & YOI)',
   'Littlehey (HMP)',
   'Moorland (HMP & YOI)',
   'Northumberland (HMP)',
   'Rye Hill (HMP)',
-  'Usk (HMP)',
   'Whatton (HMP)',
 ]
 

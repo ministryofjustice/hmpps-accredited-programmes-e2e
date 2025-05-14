@@ -8,14 +8,7 @@ test.use({ storageState: 'playwright/.auth/referrerUser.json' })
 const offeringId = '72820fe9-ad4a-4d1a-b730-ded300075749'
 const offeringLocation = 'Whatton (HMP)'
 const programmeName = 'Becoming New Me Plus: sexual offence'
-const programmeOfferings = [
-  'Bure (HMP)',
-  'Hull (HMP & YOI)',
-  'Isle Of Wight (HMP & YOI)',
-  'Rye Hill (HMP)',
-  'Wakefield (HMP)',
-  'Whatton (HMP)',
-]
+const programmeOfferings = ['Isle Of Wight (HMP & YOI)', 'Rye Hill (HMP)', 'Whatton (HMP)']
 
 test('allows users to find a programme and offering, create and submit a referral, put it on hold, remove it from hold and withdraw it', async ({
   page,
