@@ -11,7 +11,6 @@ const offeringLocation = 'Whatton (HMP)'
 const programmeName = 'Horizon'
 const programmeOfferings = [
   'Ashfield (HMP)',
-  'Bullingdon (HMP & YOI)',
   'Channings Wood (HMP)',
   'Doncaster (HMP & YOI)',
   'Fosse Way (HMP & YOI)',
