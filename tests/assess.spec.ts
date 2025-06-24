@@ -16,7 +16,6 @@ const programmeOfferings = [
   'Fosse Way (HMP & YOI)',
   'High Down (HMP & YOI)',
   'Isle Of Wight (HMP & YOI)',
-  'Littlehey (HMP)',
   'Moorland (HMP & YOI)',
   'Northumberland (HMP)',
   'Rye Hill (HMP)',
